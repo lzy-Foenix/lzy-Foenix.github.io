@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AC自动机 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="AC自动机">
+<meta property="og:url" content="http://yoursite.com/2015/03/29/AC自动机/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:image" content="http://images.cppblog.com/cppblog_com/mythit/ac1.jpg">
+<meta property="og:image" content="http://images.cppblog.com/cppblog_com/mythit/ac2.JPG">
+<meta property="og:updated_time" content="2015-03-29T12:24:03.883Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AC自动机">
+<meta name="twitter:image" content="http://images.cppblog.com/cppblog_com/mythit/ac1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-AC自动机" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/29/AC自动机/" class="article-date">
+  <time datetime="2015-03-29T11:07:01.000Z" itemprop="datePublished">2015-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/字符串/">字符串</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AC自动机
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<a id="more"></a>
+<p>转载：<a href="http://blog.csdn.net/niushuai666/article/details/7002823" target="_blank" rel="external">飘过的小牛</a>和<a href="http://55242.cf/2015/03/13/AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E5%B0%8F%E7%BB%93/#more" target="_blank" rel="external">hzoi_jsx</a></p>
+<p>###简介：</p>
+<blockquote>
+<p>AC自动机(不是顾名思义，不能自动AC…)。该算法在1975年产生于贝尔实验室，是著名的多模匹配算法之一。一个常见的例子就是给出n个单词，再给出一段包含m个字符的文章，让你找出有多少个单词在文章里出现过。要搞懂AC自动机，先得有字典树Trie和KMP模式匹配算法的基础知识。KMP算法是单模式串的字符匹配算法，AC自动机是多模式串的字符匹配算法。</p>
+<p>###构建：<br>1.构造一棵Trie，作为AC自动机的搜索数据结构<br>构造fail指针，<strong>使当前字符失配时跳转到具有最长公共前后缀的字符继续匹配</strong>。如同 KMP算法一样， 2.AC自动机在匹配时如果当前字符匹配失败，那么利用fail指针进行跳转。由此可知如果跳转，跳转后的串的前缀，必为跳转前的模式串的后缀并且跳转的新位置的深度（匹配字符个数）一定小于跳之前的节点。所以我们可以利用bfs在 Trie上面进行 fail指针的求解。<br>3.扫描主串进行匹配。</p>
+</blockquote>
+<p>###详解：</p>
+<p>####一.Trie<br>首先我们需要建立一棵Trie。但是这棵Trie不是普通的Trie，而是带有一些特殊的性质。<br>首先会有3个重要的指针，分别为p, p-&gt;fail, temp。<br>1.指针p，指向当前匹配的字符。若p指向root，表示当前匹配的字符序列为空。（root是Trie入口，没有实际含义）。<br>2.指针p-&gt;fail，p的失败指针，指向与字符p相同的结点，若没有，则指向root。<br>3.指针temp，测试指针（自己命名的，容易理解！~），在建立fail指针时有寻找与p字符匹配的结点的作用，在扫描时作用最大，也最不好理解。<br>对于Trie树中的一个节点，对应一个序列s[1…m]。此时，p指向字符s[m]。若在下一个字符处失配，即p-&gt;next[s[m+1]] == NULL，则由失配指针跳到另一个节点(p-&gt;fail)处，该节点对应的序列为s[i…m]。若继续失配，则序列依次跳转直到序列为空或出现匹配。在此过程中，p的值一直在变化，但是p对应节点的字符没有发生变化。在此过程中，我们观察可知，最终求得得序列s则为最长公共后缀。另外，由于这个序列是从root开始到某一节点，则说明这个序列有可能是某些序列的前缀。<br>再次讨论p指针转移的意义。如果p指针在某一字符s[m+1]处失配(即p-&gt;next[s[m+1]] == NULL)，则说明没有单词s[1…m+1]存在。此时，如果p的失配指针指向root，则说明当前序列的任意后缀不会是某个单词的前缀。如果p的失配指针不指向root，则说明序列s[i…m]是某一单词的前缀，于是跳转到p的失配指针，以s[i…m]为前缀继续匹配s[m+1]。<br>对于已经得到的序列s[1…m]，由于s[i…m]可能是某单词的后缀，s[1…j]可能是某单词的前缀，所以s[1…m]中可能会出现单词。此时，p指向已匹配的字符，不能动。于是，令temp = p，然后依次测试s[1…m], s[i…m]是否是单词。<br>构造的Trie为：<img src="http://images.cppblog.com/cppblog_com/mythit/ac1.jpg" alt=""></p>
+<p>####二、构造失败指针<br>用BFS来构造失败指针，与KMP算法相似的思想。<br>首先，root入队，第1次循环时处理与root相连的字符，也就是各个单词的第一个字符h和s，因为第一个字符不匹配需要重新匹配，所以第一个字符都指向root（root是Trie入口，没有实际含义）失败指针的指向对应下图中的(1)，(2)两条虚线；第2次进入循环后，从队列中先弹出h，接下来p指向h节点的fail指针指向的节点，也就是root；p=p-&gt;fail也就是p=NULL说明匹配序列为空，则把节点e的fail指针指向root表示没有匹配序列，对应图-2中的(3)，然后节点e进入队列；第3次循环时，弹出的第一个节点a的操作与上一步操作的节点e相同，把a的fail指针指向root，对应图-2中的(4)，并入队；第4次进入循环时，弹出节点h(图中左边那个)，这时操作略有不同。由于p-&gt;next[i]!=NULL(root有h这个儿子节点，图中右边那个)，这样便把左边那个h节点的失败指针指向右边那个root的儿子节点h，对应图-2中的(5)，然后h入队。以此类推：在循环结束后，所有的失败指针就是图-2中的这种形式。<img src="http://images.cppblog.com/cppblog_com/mythit/ac2.JPG" alt=""></p>
+<p>####三、扫描<br>构造好Trie和失败指针后，我们就可以对主串进行扫描了。这个过程和KMP算法很类似，但是也有一定的区别，主要是因为AC自动机处理的是多串模式，需要防止遗漏某个单词，所以引入temp指针。<br>匹配过程分两种情况：(1)当前字符匹配，表示从当前节点沿着树边有一条路径可以到达目标字符，此时只需沿该路径走向下一个节点继续匹配即可，目标字符串指针移向下个字符继续匹配；(2)当前字符不匹配，则去当前节点失败指针所指向的字符继续匹配，匹配过程随着指针指向root结束。重复这2个过程中的任意一个，直到模式串走到结尾为止。<br> 对照上图，看一下模式匹配这个详细的流程，其中模式串为yasherhs。对于i=0,1。Trie中没有对应的路径，故不做任何操作；i=2,3,4时，指针p走到左下节点e。因为节点e的count信息为1，所以cnt+1，并且讲节点e的count值设置为-1，表示改单词已经出现过了，防止重复计数，最后temp指向e节点的失败指针所指向的节点继续查找，以此类推，最后temp指向root，退出while循环，这个过程中count增加了2。表示找到了2个单词she和he。当i=5时，程序进入第5行，p指向其失败指针的节点，也就是右边那个e节点，随后在第6行指向r节点，r节点的count值为1，从而count+1，循环直到temp指向root为止。最后i=6,7时，找不到任何匹配，匹配过程结束。</p>
+<p>###模板：<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2222" target="_blank" rel="external">可戳：HDU2222</a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Read</span><span class="params">(T&amp; x)</span></span>&#123;</div><div class="line">	x=<span class="number">0</span>; <span class="keyword">bool</span> flag=<span class="number">0</span>; <span class="keyword">char</span> ch=getchar();</div><div class="line">	<span class="keyword">while</span>(ch&gt; <span class="string">'9'</span> || ch&lt; <span class="string">'0'</span>)&#123; <span class="keyword">if</span>(ch==<span class="string">'-'</span>)&#123; flag=<span class="number">1</span>; ch=getchar(); <span class="keyword">break</span>; &#125; ch=getchar();&#125;</div><div class="line">	<span class="keyword">while</span>(ch&gt;=<span class="string">'0'</span> &amp;&amp; ch&lt;=<span class="string">'9'</span>)&#123; x=x*<span class="number">10</span>+ch<span class="number">-48</span>; ch=getchar(); &#125;</div><div class="line">	<span class="keyword">if</span>(flag) x=-x;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">500010</span>;</div><div class="line"><span class="keyword">struct</span> TRIE &#123;</div><div class="line">	<span class="keyword">int</span> next[MAXN][<span class="number">26</span>],fail[MAXN],end[MAXN];</div><div class="line">	<span class="keyword">int</span> L , root;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">newnode</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">26</span>;++i) next[L][i] = <span class="number">-1</span>;</div><div class="line">		end[L++] = <span class="number">0</span>;</div><div class="line">		<span class="keyword">return</span> L<span class="number">-1</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123; L = <span class="number">0</span>; root = newnode(); &#125;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">char</span> *buf)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> len = <span class="built_in">strlen</span>(buf) , now = root;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;++i) &#123;</div><div class="line">			<span class="keyword">if</span>(next[now][buf[i]-<span class="string">'a'</span>] == <span class="number">-1</span>)</div><div class="line">				next[now][buf[i]-<span class="string">'a'</span>] = newnode();</div><div class="line">			now = next[now][buf[i]-<span class="string">'a'</span>];</div><div class="line">		&#125;</div><div class="line">		end[now]++;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;Q;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">26</span>;++i) &#123;</div><div class="line">			<span class="keyword">if</span>(next[root][i] == <span class="number">-1</span>) next[root][i] = root;</div><div class="line">			<span class="keyword">else</span>&#123;</div><div class="line">				fail[next[root][i]] = root;</div><div class="line">				Q.push(next[root][i]);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">while</span>(!Q.empty()) &#123;</div><div class="line">			<span class="keyword">int</span> now = Q.front(); Q.pop();</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">26</span>;++i) &#123;</div><div class="line">				<span class="keyword">if</span>(next[now][i] == <span class="number">-1</span>) next[now][i] = next[fail[now]][i];</div><div class="line">				<span class="keyword">else</span>&#123;</div><div class="line">					fail[next[now][i]] = next[fail[now]][i];</div><div class="line">					Q.push(next[now][i]);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">char</span> *buf)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> len = <span class="built_in">strlen</span>(buf),now = root,res = <span class="number">0</span>;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;++i) &#123;</div><div class="line">			now = next[now][buf[i]-<span class="string">'a'</span>];</div><div class="line">			<span class="keyword">int</span> temp = now;</div><div class="line">			<span class="keyword">while</span>(temp != root)&#123;</div><div class="line">				res += end[temp];</div><div class="line">				end[temp] = <span class="number">0</span>;</div><div class="line">				temp = fail[temp];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> res;</div><div class="line">	&#125;</div><div class="line">&#125;AC;</div><div class="line"><span class="keyword">char</span> buf[<span class="number">1000010</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">int</span> T,n;</div><div class="line">	Read(T);</div><div class="line">	<span class="keyword">while</span>(T--)&#123;</div><div class="line">		Read(n);</div><div class="line">		AC.init();</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;++i)&#123;</div><div class="line">			<span class="built_in">scanf</span>(<span class="string">"%s"</span>,buf);</div><div class="line">			AC.insert(buf);</div><div class="line">		&#125;</div><div class="line">		AC.build();</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%s"</span>,buf);</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,AC.query(buf));</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/03/29/AC自动机/" data-id="citvgclax00059cuiw6uaxyx2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AC自动机/">AC自动机</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/29/poj-2778-DNA-Sequence/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          poj-2778-DNA_Sequence
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/28/BZOJ-3667-Rabin-Miller算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">BZOJ-3667-Rabin-Miller算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/分块/">分块</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分治/">分治</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/动态规划/">动态规划</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/图论/">图论</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/字符串/">字符串</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/暴力/">暴力</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂文/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/矩阵/">矩阵</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算几何/">计算几何</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01分数规划/">01分数规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AC自动机/">AC自动机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一般动规和递推/">一般动规和递推</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/个人杂文/">个人杂文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/主席树/">主席树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/乱搞/">乱搞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分/">二分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸包/">凸包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分块/">分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分块思想/">分块思想</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分解质因子/">分解质因子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区间动规/">区间动规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/半平面交/">半平面交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单调栈/">单调栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博弈论/">博弈论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卡特兰数/">卡特兰数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/可持久化Trie树/">可持久化Trie树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习计划/">复习计划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡树/">平衡树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强联通分量/">强联通分量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环节/">循环节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/斜率优化/">斜率优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大流/">最大流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割/">最小割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小方差生成树/">最小方差生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长链/">最长链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形动规/">树形动规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率与期望/">概率与期望</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态压缩/">状态压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矩阵快速幂/">矩阵快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简单运算/">简单运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树区间染色/">线段树区间染色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数/">组合数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫比乌斯反演/">莫比乌斯反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫队/">莫队</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度封装/">高精度封装</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01分数规划/" style="font-size: 10px;">01分数规划</a> <a href="/tags/AC自动机/" style="font-size: 11.43px;">AC自动机</a> <a href="/tags/LCA/" style="font-size: 14.29px;">LCA</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/一般动规和递推/" style="font-size: 14.29px;">一般动规和递推</a> <a href="/tags/个人杂文/" style="font-size: 18.57px;">个人杂文</a> <a href="/tags/主席树/" style="font-size: 11.43px;">主席树</a> <a href="/tags/乱搞/" style="font-size: 10px;">乱搞</a> <a href="/tags/二分/" style="font-size: 11.43px;">二分</a> <a href="/tags/二分图/" style="font-size: 12.86px;">二分图</a> <a href="/tags/凸包/" style="font-size: 14.29px;">凸包</a> <a href="/tags/分块/" style="font-size: 10px;">分块</a> <a href="/tags/分块思想/" style="font-size: 10px;">分块思想</a> <a href="/tags/分解质因子/" style="font-size: 10px;">分解质因子</a> <a href="/tags/区间动规/" style="font-size: 12.86px;">区间动规</a> <a href="/tags/半平面交/" style="font-size: 15.71px;">半平面交</a> <a href="/tags/单调栈/" style="font-size: 10px;">单调栈</a> <a href="/tags/博弈论/" style="font-size: 12.86px;">博弈论</a> <a href="/tags/卡特兰数/" style="font-size: 10px;">卡特兰数</a> <a href="/tags/可持久化Trie树/" style="font-size: 10px;">可持久化Trie树</a> <a href="/tags/堆/" style="font-size: 11.43px;">堆</a> <a href="/tags/复习计划/" style="font-size: 12.86px;">复习计划</a> <a href="/tags/平衡树/" style="font-size: 11.43px;">平衡树</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/强联通分量/" style="font-size: 12.86px;">强联通分量</a> <a href="/tags/循环节/" style="font-size: 10px;">循环节</a> <a href="/tags/数论/" style="font-size: 20px;">数论</a> <a href="/tags/斜率优化/" style="font-size: 10px;">斜率优化</a> <a href="/tags/暴力/" style="font-size: 11.43px;">暴力</a> <a href="/tags/最大流/" style="font-size: 12.86px;">最大流</a> <a href="/tags/最小割/" style="font-size: 11.43px;">最小割</a> <a href="/tags/最小方差生成树/" style="font-size: 10px;">最小方差生成树</a> <a href="/tags/最长链/" style="font-size: 10px;">最长链</a> <a href="/tags/树形动规/" style="font-size: 11.43px;">树形动规</a> <a href="/tags/树链剖分/" style="font-size: 14.29px;">树链剖分</a> <a href="/tags/概率与期望/" style="font-size: 10px;">概率与期望</a> <a href="/tags/状态压缩/" style="font-size: 10px;">状态压缩</a> <a href="/tags/矩阵快速幂/" style="font-size: 12.86px;">矩阵快速幂</a> <a href="/tags/简单运算/" style="font-size: 12.86px;">简单运算</a> <a href="/tags/线段树/" style="font-size: 12.86px;">线段树</a> <a href="/tags/线段树区间染色/" style="font-size: 11.43px;">线段树区间染色</a> <a href="/tags/组合数/" style="font-size: 11.43px;">组合数</a> <a href="/tags/莫比乌斯反演/" style="font-size: 17.14px;">莫比乌斯反演</a> <a href="/tags/莫队/" style="font-size: 10px;">莫队</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a> <a href="/tags/高精度/" style="font-size: 10px;">高精度</a> <a href="/tags/高精度封装/" style="font-size: 10px;">高精度封装</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/04/My-New-Post/">My New Post</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/26/一切都结束了/">一切都结束了</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/23/我的未来是由我做主/">我的未来是由我做主</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/BZOJ-3144-HNOI2013-切糕/">BZOJ-3144[HNOI2013]切糕</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

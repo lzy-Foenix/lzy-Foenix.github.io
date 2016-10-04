@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CodeForce 2014 ACM-ICPC Vietnam National Second Round-D | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="CodeForce 2014 ACM-ICPC Vietnam National Second Round-D">
+<meta property="og:url" content="http://yoursite.com/2015/03/14/CodeForce-2014-ACM-ICPC-Vietnam-National-Second-Round-D/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:updated_time" content="2015-03-14T12:31:07.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CodeForce 2014 ACM-ICPC Vietnam National Second Round-D">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CodeForce-2014-ACM-ICPC-Vietnam-National-Second-Round-D" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/14/CodeForce-2014-ACM-ICPC-Vietnam-National-Second-Round-D/" class="article-date">
+  <time datetime="2015-03-14T12:27:46.000Z" itemprop="datePublished">2015-03-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数学/">数学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CodeForce 2014 ACM-ICPC Vietnam National Second Round-D
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<a id="more"></a>
+<p>###题解：<br>一看到这题就觉得有循环节，然后就去找，发现无论是什么数据都是同一个循环节（ps：就因为这个，后面才被坑了），然后就可以去做了，但是后来发现当数的后两位是25,50,75,100的时候就不适用了，这之后会经过几次变换达到后两位是00，然后N就不再变了，当N是5的倍数的时候（除了上面那几个数）循环节也是不一样的。</p>
+<p>###代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</div><div class="line">LL cir1[]=&#123;<span class="number">0</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">16</span>,<span class="number">32</span>,<span class="number">64</span>,<span class="number">28</span>,<span class="number">56</span>,<span class="number">12</span>,<span class="number">24</span>,<span class="number">48</span>,<span class="number">96</span>,<span class="number">92</span>,<span class="number">84</span>,<span class="number">68</span>,<span class="number">36</span>,<span class="number">72</span>,<span class="number">44</span>,<span class="number">88</span>,<span class="number">76</span>,<span class="number">52</span>&#125;;</div><div class="line">LL cir2[]=&#123;<span class="number">0</span>,<span class="number">20</span>,<span class="number">40</span>,<span class="number">80</span>,<span class="number">60</span>&#125;;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">int</span> T;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</div><div class="line">	<span class="keyword">while</span>(T--) &#123;</div><div class="line">		LL n,k;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%I64d%I64d"</span>,&amp;n,&amp;k);</div><div class="line">		<span class="keyword">if</span>(n%<span class="number">100</span>==<span class="number">0</span>) &#123;</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%I64d\n"</span>,n);</div><div class="line">			<span class="keyword">continue</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(n%<span class="number">5</span>) &#123;</div><div class="line">			<span class="keyword">while</span>(k--) &#123;</div><div class="line">				<span class="keyword">if</span>(n%<span class="number">100</span>!=<span class="number">4</span>)n=n+n%<span class="number">100</span>;</div><div class="line">				<span class="keyword">else</span> <span class="keyword">break</span>;</div><div class="line">			&#125;</div><div class="line">			k++;</div><div class="line">			LL temp=k/<span class="number">20</span>;</div><div class="line">			n+=temp*<span class="number">1000</span>;</div><div class="line">			temp=k%<span class="number">20</span>;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=temp;i++) n+=cir1[i];</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%I64d\n"</span>,n);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">while</span>(k--) &#123;</div><div class="line">				<span class="keyword">if</span>(n%<span class="number">100</span>!=<span class="number">20</span>)n=n+n%<span class="number">100</span>;</div><div class="line">				<span class="keyword">else</span> <span class="keyword">break</span>;</div><div class="line">				<span class="keyword">if</span>(n%<span class="number">100</span>==<span class="number">0</span>) &#123;k=<span class="number">-1</span>; <span class="keyword">break</span>; &#125;</div><div class="line">			&#125;</div><div class="line">			k++;</div><div class="line">			LL temp=k/<span class="number">4</span>;</div><div class="line">			n+=temp*<span class="number">200</span>;</div><div class="line">			temp=k%<span class="number">4</span>;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=temp;i++) n+=cir2[i];</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%I64d\n"</span>,n);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/03/14/CodeForce-2014-ACM-ICPC-Vietnam-National-Second-Round-D/" data-id="citvgclla00ag9cuieqwhuhcq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/循环节/">循环节</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/16/BZOJ-2190[SDOI2008]仪仗队/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          BZOJ-2190[SDOI2008]仪仗队
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/14/CodeForce-2014-ACM-ICPC-Vietnam-National-Second-Round-B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CodeForce 2014 ACM-ICPC Vietnam National Second Round-B</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/分块/">分块</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/分治/">分治</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/动态规划/">动态规划</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/图论/">图论</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/字符串/">字符串</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/暴力/">暴力</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂文/">杂文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/矩阵/">矩阵</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算几何/">计算几何</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01分数规划/">01分数规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AC自动机/">AC自动机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一般动规和递推/">一般动规和递推</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/个人杂文/">个人杂文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/主席树/">主席树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/乱搞/">乱搞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分/">二分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分图/">二分图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/凸包/">凸包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分块/">分块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分块思想/">分块思想</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分解质因子/">分解质因子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区间动规/">区间动规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/半平面交/">半平面交</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单调栈/">单调栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/博弈论/">博弈论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卡特兰数/">卡特兰数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/可持久化Trie树/">可持久化Trie树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复习计划/">复习计划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡树/">平衡树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强联通分量/">强联通分量</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环节/">循环节</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/斜率优化/">斜率优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/暴力/">暴力</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大流/">最大流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小割/">最小割</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小方差生成树/">最小方差生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长链/">最长链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形动规/">树形动规</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率与期望/">概率与期望</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状态压缩/">状态压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/矩阵快速幂/">矩阵快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简单运算/">简单运算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树区间染色/">线段树区间染色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组合数/">组合数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫比乌斯反演/">莫比乌斯反演</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/莫队/">莫队</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度封装/">高精度封装</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01分数规划/" style="font-size: 10px;">01分数规划</a> <a href="/tags/AC自动机/" style="font-size: 11.43px;">AC自动机</a> <a href="/tags/LCA/" style="font-size: 14.29px;">LCA</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/一般动规和递推/" style="font-size: 14.29px;">一般动规和递推</a> <a href="/tags/个人杂文/" style="font-size: 18.57px;">个人杂文</a> <a href="/tags/主席树/" style="font-size: 11.43px;">主席树</a> <a href="/tags/乱搞/" style="font-size: 10px;">乱搞</a> <a href="/tags/二分/" style="font-size: 11.43px;">二分</a> <a href="/tags/二分图/" style="font-size: 12.86px;">二分图</a> <a href="/tags/凸包/" style="font-size: 14.29px;">凸包</a> <a href="/tags/分块/" style="font-size: 10px;">分块</a> <a href="/tags/分块思想/" style="font-size: 10px;">分块思想</a> <a href="/tags/分解质因子/" style="font-size: 10px;">分解质因子</a> <a href="/tags/区间动规/" style="font-size: 12.86px;">区间动规</a> <a href="/tags/半平面交/" style="font-size: 15.71px;">半平面交</a> <a href="/tags/单调栈/" style="font-size: 10px;">单调栈</a> <a href="/tags/博弈论/" style="font-size: 12.86px;">博弈论</a> <a href="/tags/卡特兰数/" style="font-size: 10px;">卡特兰数</a> <a href="/tags/可持久化Trie树/" style="font-size: 10px;">可持久化Trie树</a> <a href="/tags/堆/" style="font-size: 11.43px;">堆</a> <a href="/tags/复习计划/" style="font-size: 12.86px;">复习计划</a> <a href="/tags/平衡树/" style="font-size: 11.43px;">平衡树</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a> <a href="/tags/强联通分量/" style="font-size: 12.86px;">强联通分量</a> <a href="/tags/循环节/" style="font-size: 10px;">循环节</a> <a href="/tags/数论/" style="font-size: 20px;">数论</a> <a href="/tags/斜率优化/" style="font-size: 10px;">斜率优化</a> <a href="/tags/暴力/" style="font-size: 11.43px;">暴力</a> <a href="/tags/最大流/" style="font-size: 12.86px;">最大流</a> <a href="/tags/最小割/" style="font-size: 11.43px;">最小割</a> <a href="/tags/最小方差生成树/" style="font-size: 10px;">最小方差生成树</a> <a href="/tags/最长链/" style="font-size: 10px;">最长链</a> <a href="/tags/树形动规/" style="font-size: 11.43px;">树形动规</a> <a href="/tags/树链剖分/" style="font-size: 14.29px;">树链剖分</a> <a href="/tags/概率与期望/" style="font-size: 10px;">概率与期望</a> <a href="/tags/状态压缩/" style="font-size: 10px;">状态压缩</a> <a href="/tags/矩阵快速幂/" style="font-size: 12.86px;">矩阵快速幂</a> <a href="/tags/简单运算/" style="font-size: 12.86px;">简单运算</a> <a href="/tags/线段树/" style="font-size: 12.86px;">线段树</a> <a href="/tags/线段树区间染色/" style="font-size: 11.43px;">线段树区间染色</a> <a href="/tags/组合数/" style="font-size: 11.43px;">组合数</a> <a href="/tags/莫比乌斯反演/" style="font-size: 17.14px;">莫比乌斯反演</a> <a href="/tags/莫队/" style="font-size: 10px;">莫队</a> <a href="/tags/链表/" style="font-size: 10px;">链表</a> <a href="/tags/高精度/" style="font-size: 10px;">高精度</a> <a href="/tags/高精度封装/" style="font-size: 10px;">高精度封装</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/04/My-New-Post/">My New Post</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/04/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/26/一切都结束了/">一切都结束了</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/23/我的未来是由我做主/">我的未来是由我做主</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/BZOJ-3144-HNOI2013-切糕/">BZOJ-3144[HNOI2013]切糕</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
