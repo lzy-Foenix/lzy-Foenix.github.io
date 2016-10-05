@@ -1,16 +1,314 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-	<title>LZY&#39;S BLOG</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-    <link rel="icon" href="/favicon.png"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>BZOJ-2756[SCOI2012]奇怪的游戏 | LZY&#39;S BLOG</title>
+  <meta name="author" content="Li ZiYang">
+  
+  <meta name="description" content="Acm AND Information Security">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="BZOJ-2756[SCOI2012]奇怪的游戏"/>
+  <meta property="og:site_name" content="LZY&#39;S BLOG"/>
+
+  
+    <meta property="og:image" content="undefined"/>
   
 
-	
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="LZY&#39;S BLOG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
 </head>
+
+
 <body>
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="js/blog.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">LZY&#39;S BLOG</a></h1>
+  <h2><a href="/">Welcome To My World! This is Acm AND Information Security</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-04-16T04:06:25.000Z"><a href="/2015/04/16/BZOJ-2756-SCOI2012-奇怪的游戏/">2015-04-16</a></time>
+      
+      
+  
+    <h1 class="title">BZOJ-2756[SCOI2012]奇怪的游戏</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <hr>
+<a id="more"></a>
+<h3 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h3><p>二分加最大流判定，碰到这种一次更改两个点的题，我们考虑黑白染色，对原图进行黑白染色，假设答案是x，那么我们可以得到$x\cdot black_sum - black_tot=x\cdot white_sum - white_tot$ (sum代表有多少格子，tot代表某一颜色的权值和)，那么可以看出来当black_sum!=white_sum的时候我们就可以轻易的得出x的值。<br>然而当不等于的时候我们就要二分判定，对于judge函数来说，当我们二分出一个x值得时候，由st向白点连接流量为x-A[i][j]的边，如果白点旁边有黑点就连接INF的边，由黑点向en连接x-A[i][j]的边，然后看跑出来的最大流是不是满流。</p>
+<h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">2005</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> node&#123;</div><div class="line">	<span class="keyword">int</span> to,next;</div><div class="line">	LL flow;</div><div class="line">&#125;Edge[MAXN*<span class="number">40</span>];</div><div class="line"></div><div class="line"><span class="keyword">int</span> N,M,T,len=<span class="number">1</span>,st,en;</div><div class="line">LL black_sum,white_sum,bltot,whtot;</div><div class="line"><span class="keyword">int</span> head[MAXN],cur[MAXN],Col[<span class="number">45</span>][<span class="number">45</span>],Dis[MAXN];</div><div class="line"><span class="keyword">int</span> X[<span class="number">4</span>]=&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>&#125;;</div><div class="line"><span class="keyword">int</span> Y[<span class="number">4</span>]=&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>&#125;;</div><div class="line">LL A[<span class="number">45</span>][<span class="number">45</span>],INF;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Add_edge</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,LL c)</span></span>&#123;</div><div class="line">	len++; Edge[len].to=b; Edge[len].next=head[a]; Edge[len].flow=c; head[a]=len;</div><div class="line">	len++; Edge[len].to=a; Edge[len].next=head[b]; Edge[len].flow=<span class="number">0</span>; head[b]=len;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Calc</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;<span class="keyword">return</span> (i<span class="number">-1</span>)*M+j;&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">BFS</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="built_in">memset</span>(Dis,<span class="number">-1</span>,<span class="keyword">sizeof</span>(Dis));</div><div class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt;Q; Q.push(st); Dis[st]=<span class="number">0</span>;</div><div class="line">	<span class="keyword">while</span>(!Q.empty())&#123;</div><div class="line">		<span class="keyword">int</span> tmp=Q.front(); Q.pop();</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=head[tmp],y=Edge[i].to;i;i=Edge[i].next,y=Edge[i].to)&#123;</div><div class="line">			<span class="keyword">if</span>(Dis[y]==<span class="number">-1</span> &amp;&amp; Edge[i].flow)&#123;</div><div class="line">				Dis[y]=Dis[tmp]+<span class="number">1</span>;</div><div class="line">				Q.push(y);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> Dis[en]==<span class="number">-1</span>? <span class="number">0</span>:<span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">my_min</span><span class="params">(LL x,LL y)</span></span>&#123;<span class="keyword">return</span> x&gt;y? y:x;&#125;</div><div class="line"></div><div class="line"><span class="function">LL <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> x,LL flow)</span></span>&#123;</div><div class="line">	<span class="keyword">if</span>(x==en || flow==<span class="number">0</span>)<span class="keyword">return</span> flow;</div><div class="line">	LL tmp=<span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> &amp;i=cur[x],y=Edge[i].to;i;i=Edge[i].next,y=Edge[i].to)&#123;</div><div class="line">		<span class="keyword">if</span>(Dis[y]==Dis[x]+<span class="number">1</span> &amp;&amp; Edge[i].flow)&#123;</div><div class="line">			LL k=DFS(y,my_min(Edge[i].flow,flow));</div><div class="line">			tmp+=k; flow-=k; Edge[i].flow-=k; Edge[i^<span class="number">1</span>].flow+=k;</div><div class="line">			<span class="keyword">if</span>(!flow)<span class="keyword">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> tmp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">LL <span class="title">Dinic</span><span class="params">()</span></span>&#123;</div><div class="line">	LL ans=<span class="number">0</span>,tmp;</div><div class="line">	<span class="keyword">while</span>(BFS())&#123;</div><div class="line">		<span class="built_in">memcpy</span>(cur,head,<span class="keyword">sizeof</span>(head));</div><div class="line">		<span class="keyword">while</span>(tmp=DFS(st,INF))ans+=tmp;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Judge</span><span class="params">(LL x)</span></span>&#123;</div><div class="line">	<span class="built_in">memset</span>(head,<span class="number">0</span>,<span class="keyword">sizeof</span>(head));</div><div class="line">	LL tot=<span class="number">0</span>; len=<span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;i++)&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=M;j++)&#123;</div><div class="line">			<span class="keyword">if</span>(Col[i][j])&#123;</div><div class="line">				Add_edge(st,Calc(i,j),x-A[i][j]); tot+=x-A[i][j];</div><div class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">4</span>;k++)&#123;</div><div class="line">					<span class="keyword">int</span> nowx=i+X[k],nowy=j+Y[k];</div><div class="line">					<span class="keyword">if</span>(nowx&lt;<span class="number">1</span> || nowx&gt;N || nowy&lt;<span class="number">1</span> || nowy&gt;M)<span class="keyword">continue</span>;</div><div class="line">					Add_edge(Calc(i,j),Calc(nowx,nowy),INF);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span> Add_edge(Calc(i,j),en,x-A[i][j]);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>(Dinic() == tot)<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</div><div class="line">	INF=(<span class="number">1L</span>L&lt;&lt;<span class="number">50</span>);</div><div class="line">	<span class="keyword">while</span>(T--)&#123;</div><div class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;N,&amp;M);</div><div class="line">		st=<span class="number">0</span>; en=N*M+<span class="number">1</span>;</div><div class="line">		LL Max=<span class="number">0</span>; black_sum=white_sum=bltot=whtot=<span class="number">0</span>;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;i++)&#123;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=M;j++)&#123;</div><div class="line">				<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;A[i][j]);</div><div class="line">				Max=max(Max,A[i][j]);</div><div class="line">				Col[i][j]=(i+j)&amp;<span class="number">1</span>;</div><div class="line">				<span class="keyword">if</span>(Col[i][j]==<span class="number">1</span>)black_sum++,bltot+=A[i][j];</div><div class="line">				<span class="keyword">else</span> white_sum++,whtot+=A[i][j];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(black_sum!=white_sum)&#123;</div><div class="line">			LL x=(bltot-whtot)/(black_sum-white_sum);</div><div class="line">			<span class="keyword">if</span>(x&gt;=Max &amp;&amp; Judge(x))&#123;</div><div class="line">				<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,x*(LL)black_sum-bltot);</div><div class="line">				<span class="keyword">continue</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">"-1"</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			LL l=Max,r=INF;</div><div class="line">			<span class="keyword">while</span>(l&lt;=r)&#123;</div><div class="line">				LL mid=(l+r)&gt;&gt;<span class="number">1</span>;</div><div class="line">				<span class="keyword">if</span>(Judge(mid))r=mid<span class="number">-1</span>;</div><div class="line">				<span class="keyword">else</span> l=mid+<span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,l*(LL)black_sum-bltot);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/图论/">图论</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/最大流/">最大流</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://lzy-foenix.github.io/2015/04/16/BZOJ-2756-SCOI2012-奇怪的游戏/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:lzy-foenix.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/分块/">分块</a><small>3</small></li>
+  
+    <li><a href="/categories/分治/">分治</a><small>2</small></li>
+  
+    <li><a href="/categories/动态规划/">动态规划</a><small>11</small></li>
+  
+    <li><a href="/categories/图论/">图论</a><small>19</small></li>
+  
+    <li><a href="/categories/字符串/">字符串</a><small>2</small></li>
+  
+    <li><a href="/categories/数学/">数学</a><small>24</small></li>
+  
+    <li><a href="/categories/数据结构/">数据结构</a><small>18</small></li>
+  
+    <li><a href="/categories/暴力/">暴力</a><small>2</small></li>
+  
+    <li><a href="/categories/杂文/">杂文</a><small>13</small></li>
+  
+    <li><a href="/categories/矩阵/">矩阵</a><small>3</small></li>
+  
+    <li><a href="/categories/计算几何/">计算几何</a><small>12</small></li>
+  
+    <li><a href="/categories/高精度/">高精度</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/01分数规划/">01分数规划</a><small>1</small></li>
+  
+    <li><a href="/tags/AC自动机/">AC自动机</a><small>2</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>4</small></li>
+  
+    <li><a href="/tags/MST/">MST</a><small>1</small></li>
+  
+    <li><a href="/tags/一般动规和递推/">一般动规和递推</a><small>4</small></li>
+  
+    <li><a href="/tags/个人杂文/">个人杂文</a><small>9</small></li>
+  
+    <li><a href="/tags/主席树/">主席树</a><small>2</small></li>
+  
+    <li><a href="/tags/乱搞/">乱搞</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>2</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/凸包/">凸包</a><small>4</small></li>
+  
+    <li><a href="/tags/分块/">分块</a><small>1</small></li>
+  
+    <li><a href="/tags/分块思想/">分块思想</a><small>1</small></li>
+  
+    <li><a href="/tags/分解质因子/">分解质因子</a><small>1</small></li>
+  
+    <li><a href="/tags/区间动规/">区间动规</a><small>3</small></li>
+  
+    <li><a href="/tags/半平面交/">半平面交</a><small>5</small></li>
+  
+    <li><a href="/tags/单调栈/">单调栈</a><small>1</small></li>
+  
+    <li><a href="/tags/博弈论/">博弈论</a><small>3</small></li>
+  
+    <li><a href="/tags/卡特兰数/">卡特兰数</a><small>1</small></li>
+  
+    <li><a href="/tags/可持久化Trie树/">可持久化Trie树</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>2</small></li>
+  
+    <li><a href="/tags/复习计划/">复习计划</a><small>3</small></li>
+  
+    <li><a href="/tags/平衡树/">平衡树</a><small>2</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>1</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>3</small></li>
+  
+    <li><a href="/tags/循环节/">循环节</a><small>1</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>8</small></li>
+  
+    <li><a href="/tags/斜率优化/">斜率优化</a><small>1</small></li>
+  
+    <li><a href="/tags/暴力/">暴力</a><small>2</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>3</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/最小方差生成树/">最小方差生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最长链/">最长链</a><small>1</small></li>
+  
+    <li><a href="/tags/树形动规/">树形动规</a><small>2</small></li>
+  
+    <li><a href="/tags/树链剖分/">树链剖分</a><small>4</small></li>
+  
+    <li><a href="/tags/概率与期望/">概率与期望</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/矩阵快速幂/">矩阵快速幂</a><small>3</small></li>
+  
+    <li><a href="/tags/简单运算/">简单运算</a><small>3</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>3</small></li>
+  
+    <li><a href="/tags/线段树区间染色/">线段树区间染色</a><small>2</small></li>
+  
+    <li><a href="/tags/组合数/">组合数</a><small>2</small></li>
+  
+    <li><a href="/tags/莫比乌斯反演/">莫比乌斯反演</a><small>6</small></li>
+  
+    <li><a href="/tags/莫队/">莫队</a><small>1</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/高精度/">高精度</a><small>1</small></li>
+  
+    <li><a href="/tags/高精度封装/">高精度封装</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 Li ZiYang
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
 </body>
 </html>

@@ -1,16 +1,315 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-	<title>LZY&#39;S BLOG</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-    <link rel="icon" href="/favicon.png"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>cf-498C-Array and Operations | LZY&#39;S BLOG</title>
+  <meta name="author" content="Li ZiYang">
+  
+  <meta name="description" content="Acm AND Information Security">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="cf-498C-Array and Operations"/>
+  <meta property="og:site_name" content="LZY&#39;S BLOG"/>
+
+  
+    <meta property="og:image" content="undefined"/>
   
 
-	
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="LZY&#39;S BLOG" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
 </head>
+
+
 <body>
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript" src="js/blog.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">LZY&#39;S BLOG</a></h1>
+  <h2><a href="/">Welcome To My World! This is Acm AND Information Security</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-04-17T02:34:12.000Z"><a href="/2015/04/17/cf-498C-Array-and-Operations/">2015-04-17</a></time>
+      
+      
+  
+    <h1 class="title">cf-498C-Array and Operations</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <hr>
+<a id="more"></a>
+<h3 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h3><p>英文题神马的最坑爹了，到最后还是看错题了= =</p>
+<p>我们把数分解质因数，然后分开考虑，将有关的点连INF的边，源点向奇点连接流量为因子数量的边，偶点向汇点连接边，做最大流。这里的因子是我们对每个数分解的某个因子。</p>
+<h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div></pre></td><td class="code"><pre><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#define INF (1&lt;&lt;29)</div><div class="line">using namespace std;</div><div class="line">const int MAXN=205,MAXM=200005;</div><div class="line"></div><div class="line">int N,M,st,en,len=1,Ans;</div><div class="line">int A[MAXN],Dis[MAXN],head[MAXM],cur[MAXM];</div><div class="line"></div><div class="line">struct NODE&#123;</div><div class="line">	int to,next,flow;</div><div class="line">&#125;Edge[MAXM&lt;&lt;1];</div><div class="line"></div><div class="line">struct node&#123;</div><div class="line">	int x,y;</div><div class="line">&#125;Pair[MAXN];</div><div class="line"></div><div class="line">void Add_edge(int a,int b,int c)&#123;</div><div class="line">	len++; Edge[len].to=b; Edge[len].next=head[a]; Edge[len].flow=c; head[a]=len;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Insert(int a,int b,int c)&#123;</div><div class="line">	Add_edge(a,b,c);</div><div class="line">	Add_edge(b,a,0);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Init()&#123;</div><div class="line">	scanf("%d%d",&amp;N,&amp;M);</div><div class="line">	for(int i=1;i&lt;=N;i++)</div><div class="line">		scanf("%d",&amp;A[i]);</div><div class="line">	for(int i=1;i&lt;=M;i++)&#123;</div><div class="line">		scanf("%d%d",&amp;Pair[i].x,&amp;Pair[i].y);</div><div class="line">		if(Pair[i].y &amp; 1)</div><div class="line">			swap(Pair[i].x,Pair[i].y);</div><div class="line">	&#125;</div><div class="line">	st=0; en=2*N+1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bool BFS()&#123;</div><div class="line">	memset(Dis,-1,sizeof(Dis));</div><div class="line">	queue&lt;int&gt;Q; Q.push(st); Dis[st]=0;</div><div class="line">	while(!Q.empty())&#123;</div><div class="line">		int tmp=Q.front(); Q.pop();</div><div class="line">		for(int i=head[tmp],y=Edge[i].to;i;i=Edge[i].next,y=Edge[i].to)&#123;</div><div class="line">			if(Dis[y] == -1 &amp;&amp; Edge[i].flow)&#123;</div><div class="line">				Dis[y]=Dis[tmp]+1;</div><div class="line">				Q.push(y);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return Dis[en]==-1? 0:1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int DFS(int x,int flow)&#123;</div><div class="line">	if(x==en || flow==0)return flow;</div><div class="line">	int tmp=0;</div><div class="line">	for(int i=head[x];i;i=Edge[i].next)&#123;</div><div class="line">		int y=Edge[i].to;</div><div class="line">		if(Dis[y]==Dis[x]+1 &amp;&amp; Edge[i].flow)&#123;</div><div class="line">			int k=DFS(y,min(Edge[i].flow,flow));</div><div class="line">			tmp+=k; flow-=k; Edge[i].flow-=k; Edge[i^1].flow+=k;</div><div class="line">			if(!flow)break;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return tmp;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Dinic()&#123;</div><div class="line">	int tmp;</div><div class="line">	while(BFS())&#123;</div><div class="line">		while(tmp=DFS(st,INF))Ans+=tmp;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Solve(int x)&#123;</div><div class="line">	len=1;</div><div class="line">	memset(head,0,sizeof(head));</div><div class="line">	for(int i=1;i&lt;=N;i++)&#123;</div><div class="line">		int t=0;</div><div class="line">		while(A[i]%x==0)A[i]/=x,t++;</div><div class="line">		if(i&amp;1)Insert(st,i,t);</div><div class="line">		else Insert(i+N,en,t);</div><div class="line">	&#125;</div><div class="line">	for(int i=1;i&lt;=M;i++)</div><div class="line">		Insert(Pair[i].x,Pair[i].y+N,INF);</div><div class="line">	Dinic();</div><div class="line">&#125;</div><div class="line"></div><div class="line">void Work()&#123;</div><div class="line">	for(int i=1;i&lt;=N;i++)&#123;</div><div class="line">		int k=sqrt(A[i]);</div><div class="line">		for(int j=2;j&lt;=k;j++)</div><div class="line">			if(A[i]%j==0)Solve(j);</div><div class="line">		if(A[i]&gt;1)Solve(A[i]);</div><div class="line">	&#125;</div><div class="line">	printf("%d\n",Ans);</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()&#123;</div><div class="line">	Init();</div><div class="line">	Work();</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/图论/">图论</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/最大流/">最大流</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://lzy-foenix.github.io/2015/04/17/cf-498C-Array-and-Operations/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:lzy-foenix.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/分块/">分块</a><small>3</small></li>
+  
+    <li><a href="/categories/分治/">分治</a><small>2</small></li>
+  
+    <li><a href="/categories/动态规划/">动态规划</a><small>11</small></li>
+  
+    <li><a href="/categories/图论/">图论</a><small>19</small></li>
+  
+    <li><a href="/categories/字符串/">字符串</a><small>2</small></li>
+  
+    <li><a href="/categories/数学/">数学</a><small>24</small></li>
+  
+    <li><a href="/categories/数据结构/">数据结构</a><small>18</small></li>
+  
+    <li><a href="/categories/暴力/">暴力</a><small>2</small></li>
+  
+    <li><a href="/categories/杂文/">杂文</a><small>13</small></li>
+  
+    <li><a href="/categories/矩阵/">矩阵</a><small>3</small></li>
+  
+    <li><a href="/categories/计算几何/">计算几何</a><small>12</small></li>
+  
+    <li><a href="/categories/高精度/">高精度</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/01分数规划/">01分数规划</a><small>1</small></li>
+  
+    <li><a href="/tags/AC自动机/">AC自动机</a><small>2</small></li>
+  
+    <li><a href="/tags/LCA/">LCA</a><small>4</small></li>
+  
+    <li><a href="/tags/MST/">MST</a><small>1</small></li>
+  
+    <li><a href="/tags/一般动规和递推/">一般动规和递推</a><small>4</small></li>
+  
+    <li><a href="/tags/个人杂文/">个人杂文</a><small>9</small></li>
+  
+    <li><a href="/tags/主席树/">主席树</a><small>2</small></li>
+  
+    <li><a href="/tags/乱搞/">乱搞</a><small>1</small></li>
+  
+    <li><a href="/tags/二分/">二分</a><small>2</small></li>
+  
+    <li><a href="/tags/二分图/">二分图</a><small>3</small></li>
+  
+    <li><a href="/tags/凸包/">凸包</a><small>4</small></li>
+  
+    <li><a href="/tags/分块/">分块</a><small>1</small></li>
+  
+    <li><a href="/tags/分块思想/">分块思想</a><small>1</small></li>
+  
+    <li><a href="/tags/分解质因子/">分解质因子</a><small>1</small></li>
+  
+    <li><a href="/tags/区间动规/">区间动规</a><small>3</small></li>
+  
+    <li><a href="/tags/半平面交/">半平面交</a><small>5</small></li>
+  
+    <li><a href="/tags/单调栈/">单调栈</a><small>1</small></li>
+  
+    <li><a href="/tags/博弈论/">博弈论</a><small>3</small></li>
+  
+    <li><a href="/tags/卡特兰数/">卡特兰数</a><small>1</small></li>
+  
+    <li><a href="/tags/可持久化Trie树/">可持久化Trie树</a><small>1</small></li>
+  
+    <li><a href="/tags/堆/">堆</a><small>2</small></li>
+  
+    <li><a href="/tags/复习计划/">复习计划</a><small>3</small></li>
+  
+    <li><a href="/tags/平衡树/">平衡树</a><small>2</small></li>
+  
+    <li><a href="/tags/并查集/">并查集</a><small>1</small></li>
+  
+    <li><a href="/tags/强联通分量/">强联通分量</a><small>3</small></li>
+  
+    <li><a href="/tags/循环节/">循环节</a><small>1</small></li>
+  
+    <li><a href="/tags/数论/">数论</a><small>8</small></li>
+  
+    <li><a href="/tags/斜率优化/">斜率优化</a><small>1</small></li>
+  
+    <li><a href="/tags/暴力/">暴力</a><small>2</small></li>
+  
+    <li><a href="/tags/最大流/">最大流</a><small>3</small></li>
+  
+    <li><a href="/tags/最小割/">最小割</a><small>2</small></li>
+  
+    <li><a href="/tags/最小方差生成树/">最小方差生成树</a><small>1</small></li>
+  
+    <li><a href="/tags/最长链/">最长链</a><small>1</small></li>
+  
+    <li><a href="/tags/树形动规/">树形动规</a><small>2</small></li>
+  
+    <li><a href="/tags/树链剖分/">树链剖分</a><small>4</small></li>
+  
+    <li><a href="/tags/概率与期望/">概率与期望</a><small>1</small></li>
+  
+    <li><a href="/tags/状态压缩/">状态压缩</a><small>1</small></li>
+  
+    <li><a href="/tags/矩阵快速幂/">矩阵快速幂</a><small>3</small></li>
+  
+    <li><a href="/tags/简单运算/">简单运算</a><small>3</small></li>
+  
+    <li><a href="/tags/线段树/">线段树</a><small>3</small></li>
+  
+    <li><a href="/tags/线段树区间染色/">线段树区间染色</a><small>2</small></li>
+  
+    <li><a href="/tags/组合数/">组合数</a><small>2</small></li>
+  
+    <li><a href="/tags/莫比乌斯反演/">莫比乌斯反演</a><small>6</small></li>
+  
+    <li><a href="/tags/莫队/">莫队</a><small>1</small></li>
+  
+    <li><a href="/tags/链表/">链表</a><small>1</small></li>
+  
+    <li><a href="/tags/高精度/">高精度</a><small>1</small></li>
+  
+    <li><a href="/tags/高精度封装/">高精度封装</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2016 Li ZiYang
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
 </body>
 </html>
